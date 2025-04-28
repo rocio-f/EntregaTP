@@ -1,0 +1,44 @@
+<h1>Estudiantes</h1>
+<!-- 
+<app-student-form>
+    
+</app-student-form> -->
+
+
+<form [formGroup] = "studentForm" (ngSubmit)="onSubmit()">
+    <div class="row col-sm-8">
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name"/>
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastName"/>
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Nota</mat-label>
+                <input matInput formControlName="grade"/>
+            </mat-form-field>
+        </div>
+    </div>
+    
+   <div class="col-sm-8 d-flex justify-content-end pe-4">
+    <button mat-raised-button type="submit">
+        Guardar
+    </button>
+   </div>
+</form>
+
+
+<app-students-table
+[dataSource]="students" 
+(editStudent)="onEditStudent($event)"
+(deleteStudent)="onDeleteStudent($event)"
+></app-students-table>
