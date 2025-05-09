@@ -5,13 +5,13 @@
   
     <!-- ID Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <th mat-header-cell *matHeaderCellDef> Nro. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
       <td mat-cell *matCellDef="let element"> {{element | nameLastName}} </td>
     </ng-container>
   
@@ -23,7 +23,7 @@
   
     <!-- Grade Column -->
     <ng-container matColumnDef="grade">
-      <th mat-header-cell *matHeaderCellDef> Grade </th>
+      <th mat-header-cell *matHeaderCellDef> Nota </th>
       <td mat-cell *matCellDef="let element"> {{element.grade | number}} </td>
     </ng-container>
   
