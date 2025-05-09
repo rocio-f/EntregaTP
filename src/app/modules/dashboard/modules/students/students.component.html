@@ -24,13 +24,13 @@
         <div class="col-sm-4">
             <mat-form-field class="w-100">
                 <mat-label>Nota</mat-label>
-                <input matInput formControlName="grade"/>
+                <input type="number" matInput formControlName="grade"/>
             </mat-form-field>
         </div>
     </div>
     
    <div class="col-sm-8 d-flex justify-content-end pe-4">
-    <button mat-raised-button type="submit">
+    <button mat-raised-button type="submit" [disabled]="!studentForm.valid">
         Guardar
     </button>
    </div>
