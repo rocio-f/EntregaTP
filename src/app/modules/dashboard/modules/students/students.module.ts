@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { NameLastNamePipe } from './pipes/name-last-name.pipe';
+import { StudentsRoutingModule } from './students-routing.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NameLastNamePipe } from './pipes/name-last-name.pipe';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    StudentsRoutingModule
   ],
   exports: [StudentsComponent]
 })

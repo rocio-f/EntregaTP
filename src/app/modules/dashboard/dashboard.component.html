@@ -14,17 +14,17 @@
 
 
   <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      
-      <app-menu></app-menu>
-       
-      
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <app-students></app-students>
-    </div>
-  
-  </mat-drawer-container>
+  <!-- SIDE MENU INICIO -->
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-menu />
+  </mat-drawer>
+  <!-- SIDE MENU FIN -->
+
+  <!-- AREA DE CONTENIDO INICIO -->
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- AREA DE CONTENIDO FIN -->
+</mat-drawer-container>
   
   

@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { MenuComponent } from './components/menu/menu.component';
 import { StudentsModule } from './modules/students/students.module';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { StudentsModule } from './modules/students/students.module';
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
-    StudentsModule
+    StudentsModule,
+    DashboardRoutingModule
   ],
   exports: [DashboardComponent]
 })
