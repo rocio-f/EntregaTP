@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Student } from './models';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import { StudentService } from './students.services';
 
 @Component({
   selector: 'app-students',
@@ -10,27 +11,33 @@ import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 })
 export class StudentsComponent {
 
-  // isEditing: boolean = false;
   editingId: number | null = null;
   studentForm: FormGroup;
 
-  students: Student[] = [
-    {id: 1, name: 'Maria', lastName: 'Garcia', grade: 6},
-    {id: 2, name: 'Carolina', lastName: 'Peres', grade: 8},
-    {id: 3, name: 'Juan', lastName: 'Perez', grade: 4},
-    {id: 4, name: 'Lucia', lastName: 'Doe', grade: 6},
-    {id: 5, name: 'Marcos', lastName: 'Fulano', grade: 5},
-    {id: 6, name: 'Lucia', lastName: 'Smith', grade: 9},
-    {id: 7, name: 'Antonio', lastName: 'Guerrera', grade: 8}
-  ]
+  students: Student[] = []
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private studentsService: StudentService) {
     this.studentForm = this.fb.group({
       id: [''],
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       grade: ['', Validators.required]
     })
+
+    this.loadStudents()
+  }
+
+  loadStudents(){
+     this.isLoading = true;
+    this.studentsService
+      .getStudents()
+      .then((datos) => 
+        // console.log(datos)
+        this.students = datos
+      )
+      .catch((error) => console.error(error)) 
+      .finally(() => (this.isLoading = false)); 
   }
 
   onSubmit(){

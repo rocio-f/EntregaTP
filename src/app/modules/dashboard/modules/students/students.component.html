@@ -1,11 +1,12 @@
 <h1>Estudiantes</h1>
-<!-- 
-<app-student-form>
-    
-</app-student-form> -->
 
 
-<form [formGroup] = "studentForm" (ngSubmit)="onSubmit()">
+<ng-container *ngIf="isLoading; else notLoading">
+  <p>Cargando, por favor espere...</p>
+</ng-container>
+
+<ng-template #notLoading>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
     <div class="row col-sm-8">
         <div class="col-sm-4">
             <mat-form-field class="w-100">
@@ -42,3 +43,4 @@
 (editStudent)="onEditStudent($event)"
 (deleteStudent)="onDeleteStudent($event)"
 ></app-students-table>
+</ng-template>
