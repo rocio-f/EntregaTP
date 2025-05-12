@@ -1,1 +1,55 @@
-<p>courses works!</p>
+<h1>Cursos</h1>
+
+
+<ng-container *ngIf="isLoading; else notLoading">
+  <p>Cargando, por favor espere...</p>
+</ng-container>
+
+<ng-template #notLoading>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="pb-4">
+    <div class="row col-sm-11">
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Nombre del curso</mat-label>
+                <input matInput formControlName="name"/>
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Profesor/a</mat-label>
+                <input matInput formControlName="professor"/>
+            </mat-form-field>
+        </div>
+
+    </div>
+<div class="row col-sm-11">
+    
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Modalidad</mat-label>
+                <input type="string" matInput formControlName="modality"/>
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-4">
+            <mat-form-field class="w-100">
+                <mat-label>Nivel</mat-label>
+                <input type="number" matInput formControlName="level"/>
+            </mat-form-field>
+        </div>
+<div class="col-sm-4 d-flex justify-content-start pt-2 ps-4">
+    <button mat-raised-button type="submit" [disabled]="!courseForm.valid">
+        Guardar
+    </button>
+   </div>
+</div>
+  
+</form>
+
+<app-courses-table
+[dataSource]="courses" 
+(editCourse)="onEditCourse($event)"
+(deleteCourse)="onDeleteCourse($event)"
+></app-courses-table>
+</ng-template>

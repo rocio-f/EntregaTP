@@ -15,7 +15,7 @@ const routes: Routes = [
       import('./modules/courses/courses.module').then(
         (m) => m.CoursesModule
       ),
-  }
+  },
 ];
 
 @NgModule({

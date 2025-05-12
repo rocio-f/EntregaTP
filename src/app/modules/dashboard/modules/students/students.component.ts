@@ -33,7 +33,6 @@ export class StudentsComponent {
     this.studentsService
       .getStudents()
       .then((datos) => 
-        // console.log(datos)
         this.students = datos
       )
       .catch((error) => console.error(error)) 
@@ -56,7 +55,6 @@ export class StudentsComponent {
     this.studentForm.reset()
     this.editingId = null
 
-    console.log("fin submit" + this.editingId)
   }
   
   onEditStudent(student: Student){

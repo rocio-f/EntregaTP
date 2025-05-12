@@ -18,7 +18,7 @@ student$: Observable<Student | null>;
     private studentService: StudentService
   ) {
     const studentId = this.activatedRoute.snapshot.params['id'];
-
+ 
     this.student$ = this.studentService.getStudentById(studentId);
   }
 }
