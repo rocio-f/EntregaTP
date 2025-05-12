@@ -1,0 +1,19 @@
+<form [formGroup]="logInForm" class="grid formgrid">
+  <div class="col-12">
+    <h1>Iniciar sesión</h1>
+  </div>
+  <mat-form-field class="col-12">
+    <mat-label>Email</mat-label>
+    <input type="email"  matInput formControlName="email" />
+  </mat-form-field>
+  <mat-form-field class="col-12">
+    <mat-label>Contraseña</mat-label>
+    <input  matInput formControlName="password" />
+  </mat-form-field>
+  <div class="col-12 d-flex justify-content-end">
+    <button mat-raised-button (click)="register()" color="primary" type="button" class="me-3">Registrarse</button>
+    <button (click)="login()" mat-raised-button color="primary" type="button" [disabled]="!logInForm.valid">
+      Iniciar sesión
+    </button>
+  </div>
+</form>
