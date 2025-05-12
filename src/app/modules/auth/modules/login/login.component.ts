@@ -22,7 +22,7 @@ this.logInForm = this.fb.group({
 
   login() {
     localStorage.setItem('token', '123456ABC');
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard/students']);
   }
 
   register(){

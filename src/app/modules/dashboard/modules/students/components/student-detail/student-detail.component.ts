@@ -20,7 +20,5 @@ student$: Observable<Student | null>;
     const studentId = this.activatedRoute.snapshot.params['id'];
 
     this.student$ = this.studentService.getStudentById(studentId);
-
-    console.log('Query Params:', this.activatedRoute.snapshot.queryParams);
   }
 }
