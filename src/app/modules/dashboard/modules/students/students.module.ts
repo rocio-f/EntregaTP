@@ -10,13 +10,15 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { NameLastNamePipe } from './pipes/name-last-name.pipe';
 import { StudentsRoutingModule } from './students-routing.module';
+import { StudentDetailComponent } from './components/student-detail/student-detail.component';
 
 
 @NgModule({
   declarations: [
     StudentsComponent,
     StudentsTableComponent,
-    NameLastNamePipe
+    NameLastNamePipe,
+    StudentDetailComponent
   ],
   imports: [
     CommonModule,

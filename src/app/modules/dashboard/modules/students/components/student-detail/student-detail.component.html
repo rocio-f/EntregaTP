@@ -1,0 +1,15 @@
+@if (!(student$ | async)) {
+<p>No se encontro el/la estudiante</p>
+} @else {
+
+<h1>{{ (student$ | async)?.lastName }} {{ (student$ | async)?.name }}</h1>
+
+<div class="mt-3">
+  <div class="mt-3">
+    <h3>Nro de estudiante: {{ (student$ | async)?.id }}</h3>
+  </div>
+
+  <div class="mt-4"><h3>Promedio General: {{ (student$ | async)?.grade }}</h3></div>
+
+</div>
+}

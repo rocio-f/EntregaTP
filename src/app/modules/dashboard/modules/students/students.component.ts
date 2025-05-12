@@ -70,4 +70,5 @@ export class StudentsComponent {
       this.students = this.students.filter((student) => student.id !== id)
     }
   }
+
 }
