@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Course } from '../../models';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { CourseService } from '../../courses.services';
+import { CourseService } from '../../courses.service';
 
 @Component({
   selector: 'app-course-detail',
