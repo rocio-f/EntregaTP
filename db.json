@@ -1,0 +1,80 @@
+{
+    "students": [
+        {
+            "id": "ebo53",
+            "name": "laura",
+            "lastName": "garcia",
+            "grade": "6",
+            "token": "foisd065c76asdc0f3sdf21hsdpom705dp9jd0j"
+        },
+        {
+            "id": "sd7r",
+            "name": "gustabo",
+            "lastName": "perez",
+            "grade": "7",
+            "token": "k3j45l34v6j546l45v6jg54kv6l456l35654bj6"
+        },
+        {
+            "id": "neh42",
+            "name": "javier",
+            "lastName": "perez",
+            "grade": "5",
+            "token": "lfn;pehi9345l345ho3t489fgfw04yhr034gf304"
+        }
+    ],
+    "courses":[
+        {
+            "id": "jb32r",
+            "name": "math I",
+            "professor": "pepe perez",
+            "modality": "virtual",
+            "level": "1"
+        },
+        {
+            "id": "ase8d",
+            "name": "math II",
+            "professor": "fabia gomez",
+            "modality": "mixto",
+            "level": "2"
+        },
+        {
+            "id": "7ds0f",
+            "name": "math III",
+            "professor": "fabia gomez",
+            "modality": "presencial",
+            "level": "3"
+        },
+        {
+            "id": "8sd0s",
+            "name": "algoritmos I",
+            "professor": "tobias smith",
+            "modality": "virtual",
+            "level": "1"
+        },
+        {
+            "id": "8sd0s",
+            "name": "algoritmos II",
+            "professor": "lucia garcia",
+            "modality": "virtual",
+            "level": "2"
+        }
+    ],
+    "users": [
+    {
+      "id": "1ds",
+      "name": "John Doe",
+      "email": "jd@mail.com",
+      "password": "123",
+      "role": "admin",
+      "token": "DJKFKJNDSJcvnvfuFDNJSAFYnsdsmcnjdasfdjj232"
+    },
+    {
+      "id": "sdf2",
+      "name": "maria garcia",
+      "email": "mg@mail.com",
+      "password": "456",
+      "role": "student",
+      "token": "dfsfdsgfdghJKSDAJKAncxnmnew324sadsadasdsan"
+    }
+  ]
+}
