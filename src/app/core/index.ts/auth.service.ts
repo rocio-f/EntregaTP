@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable } from "rxjs";
-import { Student } from "../models";
+import { registerUser, Student } from "../models";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
@@ -52,5 +52,30 @@ export class AuthService{
                 }
             })
         )
+    }
+
+    register(
+        name: string, 
+        lastname: string, 
+        email: string, 
+        password: string) : void{
+        this.http.get<registerUser[]>(
+            `http://localhost:3000/users?email=${email}`)
+        .subscribe({
+            next: (response) => {
+                const user = response[0]
+                console.log(user)
+                if(user){
+                    alert("ya existe el mail ingresado")
+                    
+                } else{
+                    // const newUser = new registerUser 
+                    // newUser.token = string.concat("slidfb;adsjfohpasd", newUser.password)
+                    // this.http.post<registerUser>(`http://localhost:3000/users`, newUser)
+
+                    this.router.navigate(['/logIn'])
+                }
+            }
+        })
     }
 }
