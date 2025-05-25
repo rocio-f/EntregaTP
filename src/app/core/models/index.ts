@@ -1,9 +1,11 @@
 export interface User{
-    id: string,
+    id: number,
     name: String,
     lastName: String,
     grade: String,
-    role: string;
+    email: string
+    password: string
+    role: string
     token: string
 }
 

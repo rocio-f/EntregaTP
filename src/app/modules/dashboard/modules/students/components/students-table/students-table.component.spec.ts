@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StudentsTableComponent } from './students-table.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatTableModule } from '@angular/material/table';
 
 describe('StudentsTableComponent', () => {
   let component: StudentsTableComponent;
@@ -8,7 +10,11 @@ describe('StudentsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StudentsTableComponent]
+      declarations: [StudentsTableComponent],
+      imports: [
+        HttpClientTestingModule,
+        MatTableModule
+      ],
     })
     .compileComponents();
 
