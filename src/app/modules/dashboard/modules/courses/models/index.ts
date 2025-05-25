@@ -5,3 +5,10 @@ export interface Course {
     modality: string,
     level: number
 }
+
+export interface newCourse {
+    name: string,
+    professor: string,
+    modality: string,
+    level: number
+}

@@ -58,8 +58,8 @@ export class StudentsComponent {
       ///nuevo estudiante
       const newStudent: newStudent  = this.studentForm.value
    
-     this.studentsService.createStudent(newStudent)
-     .subscribe({
+      this.studentsService.createStudent(newStudent)
+      .subscribe({
         next: (response) =>{
           this.students = [...this.students, response]
         },
@@ -67,7 +67,7 @@ export class StudentsComponent {
         complete: () => {
           
         }
-     })
+      })
      
     }
 
@@ -81,7 +81,7 @@ export class StudentsComponent {
   }
 
   onDeleteStudent(id: number){
-    if(confirm("esta segudo que quiere eliminar este estudiante " + id + "?")){
+    if(confirm("esta seguro que quiere eliminar este estudiante " + id + "?")){
       this.students = this.students.filter((student) => student.id !== id)
     }
 

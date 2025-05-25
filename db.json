@@ -38,29 +38,21 @@
       "name": "fabio",
       "lastName": "lopes",
       "grade": 6
+    },
+    {
+      "id": "7b8f",
+      "name": "sdfs",
+      "lastName": "sdfsd",
+      "grade": 4
     }
   ],
   "courses": [
-    {
-      "id": "jb32r",
-      "name": "math I",
-      "professor": "pepe perez",
-      "modality": "virtual",
-      "level": "1"
-    },
     {
       "id": "ase8d",
       "name": "math II",
       "professor": "fabia gomez",
       "modality": "mixto",
       "level": "2"
-    },
-    {
-      "id": "7ds0f",
-      "name": "math III",
-      "professor": "fabia gomez",
-      "modality": "presencial",
-      "level": "3"
     },
     {
       "id": "8sd0s",
@@ -75,6 +67,27 @@
       "professor": "lucia garcia",
       "modality": "virtual",
       "level": "2"
+    },
+    {
+      "id": "a99c",
+      "name": "matematica I",
+      "professor": "emilio gonzales",
+      "modality": "virtual",
+      "level": 1
+    },
+    {
+      "id": "eb92",
+      "name": "Quimica",
+      "professor": "Francisco Deira",
+      "modality": "presencial",
+      "level": 1
+    },
+    {
+      "id": "84dd",
+      "name": "Fisica",
+      "professor": "Pancracio Lopez",
+      "modality": "Mixto",
+      "level": 2
     }
   ],
   "users": [

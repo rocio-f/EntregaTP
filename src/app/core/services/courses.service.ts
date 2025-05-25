@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { delay, filter, map, Observable, of } from 'rxjs';
-import { Course } from '../../modules/dashboard/modules/courses/models';
+import { concatMap, delay, filter, map, Observable, of } from 'rxjs';
+import { Course, newCourse } from '../../modules/dashboard/modules/courses/models';
+import { HttpClient } from '@angular/common/http';
 
 const MY_DB_courses: Course[] = [
     {id: 11, name: 'Matemática', professor: 'Garcia Laura',  modality: 'virtual', level: 1},
@@ -12,26 +13,26 @@ const MY_DB_courses: Course[] = [
 
 @Injectable({ providedIn: 'root' })
 export class CourseService{
-    
-  getCourses(): Promise<Course[]> {
-    
-    const coursesPromise = new Promise<Course[]>((resolve, reject) => {
-      setTimeout(() => {
-        try {
-            resolve(MY_DB_courses);
-        } catch (error) {
-            reject('Se produjo un error al intentar obtener la lista de cursos'); 
-        }
-      }, 1000); 
-    });
-    return coursesPromise;
+constructor(private http: HttpClient){}
+
+  getCourses(): Observable<Course[]> {
+    const response = this.http.get<Course[]>(`http://localhost:3000/courses`);
+        return response
   }
 
   getCourseById(id: number): Observable<Course | null> {
-    
-    return of([...MY_DB_courses]).pipe(
-      map((courses) => courses.find((courses) => courses
-      .id == id) || null)
-    );
+       const response = this.http
+          .get<Course>(`http://localhost:3000/courses/${id}`)
+        return response
+  }
+
+  createCourse(course: newCourse): Observable<Course>{
+    return this.http.post<Course>(`http://localhost:3000/courses`, course)
+  }
+
+  deleteCourse(id: string): Observable<Course[]> {
+    return this.http
+      .delete<Course[]>(`http://localhost:3000/courses/${id}`)
+      .pipe(concatMap(() => this.getCourses()));
   }
 }

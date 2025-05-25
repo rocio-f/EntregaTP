@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Course } from './models';
+import { Course, newCourse } from './models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../../../core/services/courses.service';
+import { first, take } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -18,7 +19,6 @@ export class CoursesComponent {
 
   constructor(private fb: FormBuilder, private coursesService: CourseService) {
     this.courseForm = this.fb.group({
-      id: [''],
       name: ['', Validators.required],
       professor: ['', Validators.required],
       modality: ['', Validators.required],
@@ -32,23 +32,39 @@ export class CoursesComponent {
      this.isLoading = true;
     this.coursesService
       .getCourses()
-      .then((datos) => 
-        this.courses = datos
-      )
-      .catch((error) => console.error(error)) 
-      .finally(() => (this.isLoading = false)); 
+      .pipe(take(1), first())
+            .subscribe({
+              next: (datos) => {
+                this.courses = datos; 
+              },
+              error: (error) => console.error(error),
+              complete: () => {
+                this.isLoading = false; 
+              },
+            });
   }
 
   onSubmit(){
     if(this.editingId != null && this.editingId != undefined){
-     
-      this.courses = this.courses.map((course) => course.id === this.editingId ? 
-      {...course, ...this.courseForm.value} : course )
+     this.courses = this.courses.map((course) =>
+        course.id === this.editingId
+          ? { ...course, ...this.courseForm.value }
+          : course
+           );
     } 
     else{
-      let lastCourse = this.courses[this.courses.length-1];
-      this.courseForm.value.id = lastCourse.id + 1;
-      this.courses = [...this.courses, this.courseForm.value]
+      const newCourse: newCourse  = this.courseForm.value
+   
+      this.coursesService.createCourse(newCourse)
+      .subscribe({
+        next: (response) =>{
+          this.courses = [...this.courses, response]
+        },
+        error: (error) => console.error(error),
+        complete: () => {
+          
+        }
+      })
     }
 
     this.courseForm.reset()
@@ -56,14 +72,19 @@ export class CoursesComponent {
   }
   
   onEditCourse(course: Course){
-    
     this.editingId = course.id;
     this.courseForm.patchValue(course)
   }
 
   onDeleteCourse(id: number){
-    if(confirm("esta segudo que quiere eliminar este curso " + id + "?")){
+    if(confirm("esta seguro que quiere eliminar este curso " + id + "?")){
       this.courses = this.courses.filter((course) => course.id !== id)
     }
+
+    this.coursesService.deleteCourse(id.toLocaleString()).subscribe({
+        next: (response) => {
+          this.courses = response;
+        },
+      });
   }
 }
