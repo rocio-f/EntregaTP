@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Course } from './models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseService } from './courses.service';
+import { CourseService } from '../../../../core/services/courses.service';
 
 @Component({
   selector: 'app-courses',

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Student } from './models';
+import { Student, newStudent } from './models';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
-import { StudentService } from './students.service';
+import { StudentService } from '../../../../core/services/students.service';
+import { first, take } from 'rxjs';
+
 
 @Component({
   selector: 'app-students',
@@ -19,7 +21,7 @@ export class StudentsComponent {
 
   constructor(private fb: FormBuilder, private studentsService: StudentService) {
     this.studentForm = this.fb.group({
-      id: [''],
+      
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       grade: ['', Validators.required]
@@ -32,33 +34,48 @@ export class StudentsComponent {
      this.isLoading = true;
     this.studentsService
       .getStudents()
-      .then((datos) => 
-        this.students = datos
-      )
-      .catch((error) => console.error(error)) 
-      .finally(() => (this.isLoading = false)); 
+      .pipe(take(1), first())
+      .subscribe({
+        next: (datos) => {
+          this.students = datos; 
+        },
+        error: (error) => console.error(error),
+        complete: () => {
+          this.isLoading = false; 
+        },
+      });
   }
 
   onSubmit(){
     if(this.editingId != null && this.editingId != undefined){
-      //editando
-      this.students = this.students.map((student) => student.id === this.editingId ? 
-      {...student, ...this.studentForm.value} : student )
+      this.students = this.students.map((student) =>
+        student.id === this.editingId
+          ? { ...student, ...this.studentForm.value }
+          : student
+      );
     } 
     else{
       ///nuevo estudiante
-      let lastStudent = this.students[this.students.length-1];
-      this.studentForm.value.id = lastStudent.id + 1;
-      this.students = [...this.students, this.studentForm.value]
+      const newStudent: newStudent  = this.studentForm.value
+   
+     this.studentsService.createStudent(newStudent)
+     .subscribe({
+        next: (response) =>{
+          this.students = [...this.students, response]
+        },
+        error: (error) => console.error(error),
+        complete: () => {
+          
+        }
+     })
+     
     }
 
     this.studentForm.reset()
     this.editingId = null
-
   }
   
   onEditStudent(student: Student){
-    
     this.editingId = student.id;
     this.studentForm.patchValue(student)
   }
@@ -67,6 +84,12 @@ export class StudentsComponent {
     if(confirm("esta segudo que quiere eliminar este estudiante " + id + "?")){
       this.students = this.students.filter((student) => student.id !== id)
     }
+
+    this.studentsService.deleteStudent(id.toLocaleString()).subscribe({
+        next: (response) => {
+          this.students = response;
+        },
+      });
   }
 
 }

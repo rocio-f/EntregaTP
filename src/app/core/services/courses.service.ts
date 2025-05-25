@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, filter, map, Observable, of } from 'rxjs';
-import { Course } from './models';
+import { Course } from '../../modules/dashboard/modules/courses/models';
 
 const MY_DB_courses: Course[] = [
     {id: 11, name: 'Matemática', professor: 'Garcia Laura',  modality: 'virtual', level: 1},

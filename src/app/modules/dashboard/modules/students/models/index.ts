@@ -4,3 +4,9 @@ export interface Student {
     lastName: string,
     grade: number
 }
+
+export interface newStudent {
+    name: string,
+    lastName: string,
+    grade: number
+}
