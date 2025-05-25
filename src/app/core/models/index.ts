@@ -1,8 +1,9 @@
-export interface Student{
+export interface User{
     id: string,
     name: String,
     lastName: String,
     grade: String,
+    role: string;
     token: string
 }
 

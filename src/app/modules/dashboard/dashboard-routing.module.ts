@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'courses',
+    // canActivate: [adminGuard], //los alumnos puede listar los cursos segun consigna coderhouse
     loadChildren: () =>
       import('./modules/courses/courses.module').then(
         (m) => m.CoursesModule

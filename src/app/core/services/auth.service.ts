@@ -1,19 +1,19 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable } from "rxjs";
-import { registerUser, Student } from "../models";
+import { registerUser, User } from "../models";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class AuthService{
-    private _authUser$ = new BehaviorSubject<Student | null>(null)
+    private _authUser$ = new BehaviorSubject<User | null>(null)
 
-    authUser$: Observable<Student | null> = this._authUser$.asObservable()
+    authUser$: Observable<User | null> = this._authUser$.asObservable()
 
     constructor(private http: HttpClient, private router: Router){}
 
     logIn(email: string, password: string): void {
-        this.http.get<Student[]>(`http://localhost:3000/users?email=${email}&password=${password}`)
+        this.http.get<User[]>(`http://localhost:3000/users?email=${email}&password=${password}`)
         .subscribe({
             next: (response) => {
                 const user = response[0]
@@ -35,11 +35,11 @@ export class AuthService{
         this.router.navigate(['/logIn'])
     }
 
-    verifyToken(): Observable<Student | boolean>{
+    verifyToken(): Observable<User | boolean>{
         const storedToken = localStorage.getItem('token')
 
         return this.http
-        .get<Student[]>(`http://localhost:3000/users?token=${storedToken}`)
+        .get<User[]>(`http://localhost:3000/users?token=${storedToken}`)
         .pipe(
             map((response) => {
                 const student = response[0]

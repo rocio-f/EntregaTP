@@ -12,10 +12,14 @@ const routes: Routes = [
       path:'courses',
       component: CoursesComponent
    },
-     {
-       path: 'courses/:id',
-       component: CourseDetailComponent,
-     }
+   {
+      path: 'courses/:id',
+      component: CourseDetailComponent,
+   },
+    {
+      path: ':id',
+      component: CourseDetailComponent,
+   },
 ];
 
 @NgModule({
