@@ -1,7 +1,7 @@
 {
   "students": [
     {
-      "id": "1",
+      "id": "sdf2",
       "name": "laura",
       "lastName": "garcia",
       "grade": "6",
@@ -62,7 +62,7 @@
       "level": "1"
     },
     {
-      "id": "8sd0s",
+      "id": "8sd0s1",
       "name": "algoritmos II",
       "professor": "lucia garcia",
       "modality": "virtual",
@@ -106,6 +106,23 @@
       "password": "456",
       "role": "student",
       "token": "dfsfdsgfdghJKSDAJKAncxnmnew324sadsadasdsan"
+    }
+  ],
+  "inscriptions":[
+    {
+      "id": "yuixcv",
+      "idCourse": "ase8d",
+      "idStudent": "sdf2"
+    },
+    {
+      "id": "hsfdgh",
+      "idCourse": "eb92",
+      "idStudent": "sdf2"
+    },
+    {
+      "id": "jdffg",
+      "idCourse": "eb92",
+      "idStudent": "1d83"
     }
   ]
 }

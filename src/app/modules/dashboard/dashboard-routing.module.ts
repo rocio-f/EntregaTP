@@ -18,6 +18,13 @@ const routes: Routes = [
         (m) => m.CoursesModule
       ),
   },
+  {
+    path: 'inscriptions',
+    loadChildren: () =>
+      import('./modules/inscriptions/inscriptions.module').then(
+        (m) => m.InscriptionsModule
+      ),
+  },
 ];
 
 @NgModule({

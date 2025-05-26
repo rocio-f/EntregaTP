@@ -1,0 +1,33 @@
+<h1>Inscripcion a cursos</h1>
+
+
+
+<ng-container *ngIf="isLoading; else notLoading">
+  <p>Cargando, por favor espere...</p>
+</ng-container>
+
+<ng-template #notLoading>
+    <app-inscriptions-table
+    [dataSource]="inscriptionCourses">
+        
+    </app-inscriptions-table>
+</ng-template>
+
+
+
+<!-- 
+
+si es estudiante:
+    veo tabla(o expansion panel) con todos los cursos con botones + -
+
+si es admin:
+    no veo nada
+    
+    o
+    
+    veo todos los cursos, cada curos es un expansion panel cerrado
+    cuando abro un expansion panel veo todos los alumnos de ese curso y puedo ir eliminando
+    NO cargo el contenido de adetro hasta que se abren
+
+-->
+
