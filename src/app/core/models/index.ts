@@ -16,3 +16,13 @@ export interface registerUser {
     password: string, 
     token: string
 }
+
+export interface InscriptionCourses{
+    courseId: string
+    inscriptionId: string
+    name: string
+    professor: string
+    modality: string
+    level: number
+    inscripted: boolean
+}

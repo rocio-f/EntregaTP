@@ -50,6 +50,6 @@
 <app-courses-table
 [dataSource]="courses" 
 (editCourse)="onEditCourse($event)"
-(deleteCourse)="onDeleteCourse($event)"
+(deleteCourse)="onDeleteCourse($event.toString())"
 ></app-courses-table>
 </ng-template>

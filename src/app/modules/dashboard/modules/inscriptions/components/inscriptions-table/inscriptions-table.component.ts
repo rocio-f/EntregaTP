@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output  } from '@angular/core';
 import { Inscription, InscriptionCourses } from '../../models';
 
 @Component({
@@ -12,4 +12,10 @@ displayedColumns: string[] = ['id', 'name', 'actions'];
 
   @Input()
   dataSource: InscriptionCourses[] = []
+
+  @Output()
+  unsuscribeCourse = new EventEmitter<InscriptionCourses>()
+  
+  // @Output()
+  // inscribeCourse = new EventEmitter<Course>()
 }

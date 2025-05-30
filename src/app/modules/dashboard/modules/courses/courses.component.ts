@@ -11,7 +11,7 @@ import { first, take } from 'rxjs';
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent {
-  editingId: number | null = null;
+  editingId: string | null = null;
   courseForm: FormGroup;
 
   courses: Course[] = []
@@ -76,7 +76,7 @@ export class CoursesComponent {
     this.courseForm.patchValue(course)
   }
 
-  onDeleteCourse(id: number){
+  onDeleteCourse(id: string){
     if(confirm("esta seguro que quiere eliminar este curso " + id + "?")){
       this.courses = this.courses.filter((course) => course.id !== id)
     }

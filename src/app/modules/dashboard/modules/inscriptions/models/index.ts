@@ -1,13 +1,13 @@
 export interface Inscription
 {
-    id: number
-    idCourse: number
-    idStudent: number
+    id: string
+    courseId: string
+    studentId: string
 }
 
 export interface InscriptionCourses{
-    id: number
-    idInscription: number
+    courseId: string
+    inscriptionId: string
     name: string
     professor: string
     modality: string

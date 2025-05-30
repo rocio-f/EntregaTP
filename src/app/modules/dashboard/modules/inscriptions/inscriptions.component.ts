@@ -22,7 +22,7 @@ export class InscriptionsComponent {
   editingId: number | null = null;
   inscriptionForm: FormGroup;
 
-  user: User | null = null
+  user: User = {} as User
 
   inscriptions: Inscription[] = []
   courses: Course[] = []
@@ -45,8 +45,9 @@ export class InscriptionsComponent {
     })
 
     this.getLoguedUser()
-    this.loadInscriptions()
-    this.loadAllCourses()
+    // this.loadInscriptions()
+    // this.loadAllCourses()
+    this.loadInscriptedCoursesByStudent()
   }
 
   getLoguedUser(){
@@ -54,7 +55,7 @@ export class InscriptionsComponent {
     this.authUser$.subscribe(
       {
         next: (response) => {
-          this.user = response;
+          this.user = response != null ? response : this.user;
         },
       }
     )
@@ -68,6 +69,8 @@ export class InscriptionsComponent {
             .subscribe({
               next: (datos) => {
                 this.inscriptions = datos; 
+                
+                console.log('inscripciones loaded')
               },
               error: (error) => console.error(error),
               complete: () => {
@@ -76,47 +79,79 @@ export class InscriptionsComponent {
             });
   }
 
-  loadAllCourses(){
-    this.courseServices.getCourses()
-    .pipe(take(1), first())
-            .subscribe({
-              next: (datos) => {
-                this.courses = datos; 
-              },
-              error: (error) => console.error(error),
-              complete: () => {
-                this.getInscriptedCoursesByStudent()
-              },
-            });
+  loadInscriptedCoursesByStudent(){
+    // const ccc = this.inscriptionService
+    //   .getAllCoursesAndStudentInscriptions(this.user.id)
+    //   .pipe(take(1), first())
+    //         .subscribe({
+    //           next: (datos) => {
+    //             this.inscriptionCourses = datos; 
+                
+    //             console.log('inscripciones loaded' + JSON.stringify(datos))
+    //           },
+    //           error: (error) => console.error(error),
+    //           complete: () => {
+    //             this.isLoading = false; 
+    //           },
+    //         });
   }
 
-  getInscriptedCoursesByStudent(){
-    this.inscriptionService.getInscriptionsByStudent(this.user?.id)
-      .pipe(take(1), first())
-      .subscribe({
-        next: (datos) => {
+//   loadAllCourses(){
+//     this.courseServices.getCourses()
+//     .pipe(take(1), first())
+//             .subscribe({
+//               next: (datos) => {
+//                 this.courses = datos; 
+//                 console.log('cursos loaded')
+//               },
+//               error: (error) => console.error(error),
+//               complete: () => {
+//                 this.getInscriptedCoursesByStudent()
+//               },
+//             });
+//   }
+
+//   getInscriptedCoursesByStudent(){
+//     this.inscriptionService.getInscriptionsByStudent(this.user?.id)
+//       .pipe(take(1), first())
+//       .subscribe({
+//         next: (datos) => {
           
-          if(datos != null){
-            this.courses.forEach(course => {
-              let inscriptCourse: InscriptionCourses = {} as InscriptionCourses
+//           if(datos != null){
+//             this.courses.forEach(course => {
+//               let inscriptCourse: InscriptionCourses = {} as InscriptionCourses
 
-            let resp = datos.find(x => x.idCourse == course.id)
+//             let resp = datos.find(x => x.courseId == course.id)
             
-            Object.assign(inscriptCourse, course)
+//             Object.assign(inscriptCourse, course)
             
-            //si no hay inscripcion no se usa el id, se crea de 0
-            inscriptCourse.idInscription = resp != null ? resp?.id : 0 
-            inscriptCourse.inscripted = resp != null
+//             //si no hay inscripcion no se usa el id, se crea de 0
+//             inscriptCourse.inscriptionId = resp != null ? resp?.id : 0 
+//             inscriptCourse.inscripted = resp != null
 
-            this.inscriptionCourses.push(inscriptCourse)
-            });
-          }
-        },
-        error: (error) => console.error(error),
-        complete: () => {
-console.log("Incripciones a cursos: "+JSON.stringify(this.inscriptionCourses) )
+//             this.inscriptionCourses.push(inscriptCourse)
+//             });
+//           }
+//           console.log('inscripcion cursos leaded')
+//         },
+//         error: (error) => console.error(error),
+//         complete: () => {
+// console.log("Incripciones a cursos: "+JSON.stringify(this.inscriptionCourses) )
+//         },
+//       });
+//   }
+
+unsuscribeCourse(inscriptionCourse: InscriptionCourses){
+  console.log("llego  unsuscribeCourse")
+    if(confirm("esta seguro que quiere desuscribirse del curso " + inscriptionCourse.name + "?")){
+      this.inscriptionCourses = this.inscriptionCourses.filter((i) => i.courseId !== inscriptionCourse.inscriptionId)
+    }
+
+    this.inscriptionService.deleteInscription(inscriptionCourse.courseId.toLocaleString()).subscribe({
+        next: (response) => {
+          this.inscriptions = response;
         },
       });
   }
 
-}
+ }

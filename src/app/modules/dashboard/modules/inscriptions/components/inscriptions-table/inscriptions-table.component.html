@@ -18,13 +18,14 @@
       <td mat-cell *matCellDef="let element"> 
       
         <button mat-button 
-        *ngIf="element.inscripted"
+        *ngIf="!element.inscripted"
         > 
           <mat-icon>add</mat-icon>
         </button>  
 
         <button mat-button 
-        *ngIf="!element.inscripted"
+        *ngIf="element.inscripted"
+        (click)="unsuscribeCourse.emit(element)"
         > 
           <mat-icon>minimize</mat-icon>
         </button>  

@@ -1,13 +1,6 @@
 {
   "students": [
     {
-      "id": "sdf2",
-      "name": "laura",
-      "lastName": "garcia",
-      "grade": "6",
-      "token": "foisd065c76asdc0f3sdf21hsdpom705dp9jd0j"
-    },
-    {
       "id": "2",
       "name": "gustabo",
       "lastName": "perez",
@@ -108,21 +101,21 @@
       "token": "dfsfdsgfdghJKSDAJKAncxnmnew324sadsadasdsan"
     }
   ],
-  "inscriptions":[
+  "inscriptions": [
     {
       "id": "yuixcv",
-      "idCourse": "ase8d",
-      "idStudent": "sdf2"
+      "courseId": "ase8d",
+      "studentId": "sdf2"
     },
     {
       "id": "hsfdgh",
-      "idCourse": "eb92",
-      "idStudent": "sdf2"
+      "courseId": "eb92",
+      "studentId": "sdf2"
     },
     {
       "id": "jdffg",
-      "idCourse": "eb92",
-      "idStudent": "1d83"
+      "courseId": "eb92",
+      "studentId": "1d83"
     }
   ]
 }
