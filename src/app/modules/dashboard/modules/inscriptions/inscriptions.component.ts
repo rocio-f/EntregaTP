@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Inscription, InscriptionCourses } from './models';
 import { InscriptionService } from '../../../../core/services/inscriptions.service';
-import { first, Observable, take } from 'rxjs';
+import { concatMap, first, map, observable, Observable, of, take } from 'rxjs';
 import { CourseService } from '../../../../core/services/courses.service';
 import { Course } from '../courses/models';
 import { User } from '../../../../core/models';
@@ -25,6 +25,7 @@ export class InscriptionsComponent {
   user: User = {} as User
 
   inscriptions: Inscription[] = []
+  inscriptionsByStudent: Inscription[] | null = []
   courses: Course[] = []
   inscriptionCourses: InscriptionCourses[] = []
 
@@ -38,15 +39,9 @@ export class InscriptionsComponent {
       this.authUser$ = this.authService.authUser$;  
 
       this.inscriptionForm = this.fb.group({
-        // name: ['', Validators.required],
-        // professor: ['', Validators.required],
-        // modality: ['', Validators.required],
-        // level: ['', Validators.required]
     })
 
     this.getLoguedUser()
-    // this.loadInscriptions()
-    // this.loadAllCourses()
     this.loadInscriptedCoursesByStudent()
   }
 
@@ -80,74 +75,56 @@ export class InscriptionsComponent {
   }
 
   loadInscriptedCoursesByStudent(){
-    // const ccc = this.inscriptionService
-    //   .getAllCoursesAndStudentInscriptions(this.user.id)
-    //   .pipe(take(1), first())
-    //         .subscribe({
-    //           next: (datos) => {
-    //             this.inscriptionCourses = datos; 
-                
-    //             console.log('inscripciones loaded' + JSON.stringify(datos))
-    //           },
-    //           error: (error) => console.error(error),
-    //           complete: () => {
-    //             this.isLoading = false; 
-    //           },
-    //         });
+    of('234')
+    .pipe(
+      concatMap(() => {
+        return this.loadAllCourses()
+      }),
+      concatMap((dataCourses) => {
+        this.courses = dataCourses
+        return this.getInscriptionsByStudent()
+      })
+    )
+    .subscribe({
+        next: (inscriptionsByStudent: Inscription[]) => {
+
+          if(inscriptionsByStudent != null){
+            this.courses.forEach(course => {
+              let inscriptCourse: InscriptionCourses = {} as InscriptionCourses
+
+            let resp = inscriptionsByStudent.find(x => x.courseId == course.id)
+            
+            Object.assign(inscriptCourse, course)
+            
+            //si no hay inscripcion no se usa el id, se crea de 0
+            inscriptCourse.inscriptionId = resp != null ? resp?.id : '0' 
+            inscriptCourse.inscripted = resp != null
+
+            this.inscriptionCourses.push(inscriptCourse)
+            });
+          }
+          this.inscriptionCourses = [...this.inscriptionCourses]
+          return this.inscriptionCourses
+        },
+      });
   }
 
-//   loadAllCourses(){
-//     this.courseServices.getCourses()
-//     .pipe(take(1), first())
-//             .subscribe({
-//               next: (datos) => {
-//                 this.courses = datos; 
-//                 console.log('cursos loaded')
-//               },
-//               error: (error) => console.error(error),
-//               complete: () => {
-//                 this.getInscriptedCoursesByStudent()
-//               },
-//             });
-//   }
+  loadAllCourses() : Observable<any> {
+    return this.courseServices.getCourses()
+  }
 
-//   getInscriptedCoursesByStudent(){
-//     this.inscriptionService.getInscriptionsByStudent(this.user?.id)
-//       .pipe(take(1), first())
-//       .subscribe({
-//         next: (datos) => {
-          
-//           if(datos != null){
-//             this.courses.forEach(course => {
-//               let inscriptCourse: InscriptionCourses = {} as InscriptionCourses
+  getInscriptionsByStudent() : Observable<any> {
+    return this.inscriptionService.getInscriptionsByStudent(this.user.id)
+  }
 
-//             let resp = datos.find(x => x.courseId == course.id)
-            
-//             Object.assign(inscriptCourse, course)
-            
-//             //si no hay inscripcion no se usa el id, se crea de 0
-//             inscriptCourse.inscriptionId = resp != null ? resp?.id : 0 
-//             inscriptCourse.inscripted = resp != null
-
-//             this.inscriptionCourses.push(inscriptCourse)
-//             });
-//           }
-//           console.log('inscripcion cursos leaded')
-//         },
-//         error: (error) => console.error(error),
-//         complete: () => {
-// console.log("Incripciones a cursos: "+JSON.stringify(this.inscriptionCourses) )
-//         },
-//       });
-//   }
-
+  
 unsuscribeCourse(inscriptionCourse: InscriptionCourses){
   console.log("llego  unsuscribeCourse")
     if(confirm("esta seguro que quiere desuscribirse del curso " + inscriptionCourse.name + "?")){
-      this.inscriptionCourses = this.inscriptionCourses.filter((i) => i.courseId !== inscriptionCourse.inscriptionId)
+      this.inscriptionCourses = this.inscriptionCourses.filter((i) => i.id !== inscriptionCourse.inscriptionId)
     }
 
-    this.inscriptionService.deleteInscription(inscriptionCourse.courseId.toLocaleString()).subscribe({
+    this.inscriptionService.deleteInscription(inscriptionCourse.id.toLocaleString()).subscribe({
         next: (response) => {
           this.inscriptions = response;
         },

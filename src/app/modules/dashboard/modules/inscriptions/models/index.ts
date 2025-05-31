@@ -6,7 +6,7 @@ export interface Inscription
 }
 
 export interface InscriptionCourses{
-    courseId: string
+    id: string
     inscriptionId: string
     name: string
     professor: string

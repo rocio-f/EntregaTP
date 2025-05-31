@@ -26,32 +26,4 @@ constructor(private http: HttpClient){}
       .delete<Inscription[]>(`http://localhost:3000/inscriptions/${id}`)
       .pipe(concatMap(() => this.getInscriptions()));
   }
-
-//   getAllCoursesAndStudentInscriptions(studentId: string): Observable<InscriptionCourses[]> {
-//     const list: Inscription[] = [] 
-//     let inscripcionesCursosOBS: Observable<InscriptionCourses[]>
-// const inscripcionesCursos: InscriptionCourses[] = []
-//     const courses = this.http.get<Course[]>(`http://localhost:3000/courses`)
-//     .pipe(map(inscriptions => {
-//       courses.forEach(cour => {
-//                 let oneInscriptionOneCourse: InscriptionCourses = {} as InscriptionCourses
-
-//                  inscriptions.forEach((inscription) => {
-
-//             Object.assign(oneInscriptionOneCourse, cour)
-//             oneInscriptionOneCourse.inscripted = true
-//             // oneInscriptionOneCourse.courseId = cour.id
-            
-//              inscripcionesCursos.push(oneInscriptionOneCourse)
-//            })
-//               })
-              
-//               return inscripcionesCursos
-//     }
-
-//     ))
-//     return courses
-//   }
-
-
 }
