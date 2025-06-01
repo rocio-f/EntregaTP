@@ -19,6 +19,7 @@
       
         <button mat-button 
         *ngIf="!element.inscripted"
+        (click)="inscribeCourse.emit(element)"
         > 
           <mat-icon>add</mat-icon>
         </button>  

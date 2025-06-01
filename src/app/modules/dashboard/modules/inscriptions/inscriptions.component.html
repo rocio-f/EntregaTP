@@ -8,8 +8,10 @@
 
 <ng-template #notLoading>
     <app-inscriptions-table
-    [dataSource]="inscriptionCourses">
-        
+    [dataSource]="inscriptionCourses"
+    (unsuscribeCourse)="onUnsuscribeCourse($event)"
+    (inscribeCourse)="onInscribeCourse($event)"
+    >
     </app-inscriptions-table>
 </ng-template>
 

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { catchError, concatMap, delay, filter, find, map, Observable, of  } from "rxjs";
 import { Inscription } from "../../modules/dashboard/modules/inscriptions/models";
 import { Course } from "../../modules/dashboard/modules/courses/models";
-import { InscriptionCourses } from "../models";
+import { InscriptionCourses, NewInscrtiption } from "../models";
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,5 +25,10 @@ constructor(private http: HttpClient){}
     return this.http
       .delete<Inscription[]>(`http://localhost:3000/inscriptions/${id}`)
       .pipe(concatMap(() => this.getInscriptions()));
+  }
+
+  createInscription(inscription: NewInscrtiption): Observable<Inscription>{
+    console.log("llego servicio, creando nueva inscripcion: ", inscription)
+    return this.http.post<Inscription>(`http://localhost:3000/inscriptions`, inscription)
   }
 }

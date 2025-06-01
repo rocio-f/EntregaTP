@@ -79,12 +79,12 @@ export class CoursesComponent {
   onDeleteCourse(id: string){
     if(confirm("esta seguro que quiere eliminar este curso " + id + "?")){
       this.courses = this.courses.filter((course) => course.id !== id)
-    }
 
-    this.coursesService.deleteCourse(id.toLocaleString()).subscribe({
+      this.coursesService.deleteCourse(id.toLocaleString()).subscribe({
         next: (response) => {
           this.courses = response;
         },
       });
+    }
   }
 }

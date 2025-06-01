@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output  } from '@angular/core';
 import { Inscription, InscriptionCourses } from '../../models';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inscriptions-table',
@@ -16,6 +17,6 @@ displayedColumns: string[] = ['id', 'name', 'actions'];
   @Output()
   unsuscribeCourse = new EventEmitter<InscriptionCourses>()
   
-  // @Output()
-  // inscribeCourse = new EventEmitter<Course>()
+  @Output()
+  inscribeCourse = new EventEmitter<InscriptionCourses>()
 }

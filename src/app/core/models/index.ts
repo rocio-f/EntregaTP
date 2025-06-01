@@ -26,3 +26,8 @@ export interface InscriptionCourses{
     level: number
     inscripted: boolean
 }
+
+export interface NewInscrtiption{
+    courseId: string
+    studentId: string
+}

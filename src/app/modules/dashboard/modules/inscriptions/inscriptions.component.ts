@@ -5,7 +5,7 @@ import { InscriptionService } from '../../../../core/services/inscriptions.servi
 import { concatMap, first, map, observable, Observable, of, take } from 'rxjs';
 import { CourseService } from '../../../../core/services/courses.service';
 import { Course } from '../courses/models';
-import { User } from '../../../../core/models';
+import { NewInscrtiption, User } from '../../../../core/models';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
@@ -97,6 +97,7 @@ export class InscriptionsComponent {
             Object.assign(inscriptCourse, course)
             
             //si no hay inscripcion no se usa el id, se crea de 0
+            inscriptCourse.courseId = course.id
             inscriptCourse.inscriptionId = resp != null ? resp?.id : '0' 
             inscriptCourse.inscripted = resp != null
 
@@ -118,17 +119,37 @@ export class InscriptionsComponent {
   }
 
   
-unsuscribeCourse(inscriptionCourse: InscriptionCourses){
-  console.log("llego  unsuscribeCourse")
+onUnsuscribeCourse(inscriptionCourse: InscriptionCourses){
     if(confirm("esta seguro que quiere desuscribirse del curso " + inscriptionCourse.name + "?")){
-      this.inscriptionCourses = this.inscriptionCourses.filter((i) => i.id !== inscriptionCourse.inscriptionId)
-    }
+      this.inscriptionCourses = this.inscriptionCourses.filter((i) => i.inscriptionId !== inscriptionCourse.inscriptionId)
 
-    this.inscriptionService.deleteInscription(inscriptionCourse.id.toLocaleString()).subscribe({
+      this.inscriptionService.deleteInscription(inscriptionCourse.inscriptionId.toLocaleString()).subscribe({
         next: (response) => {
-          this.inscriptions = response;
+          // this.inscriptions = response;
+          window.location.reload()  
         },
       });
+    }
+  }
+
+onInscribeCourse(inscriptionCourse: InscriptionCourses){
+  console.log("DATO DEL FRONT: ", inscriptionCourse)
+    if(confirm("esta seguro que quiere inscribirse en el siguiente curso: " + inscriptionCourse.name + "?")){
+      const newInscription: NewInscrtiption = {
+        courseId: inscriptionCourse.courseId,
+        studentId: this.user.id
+      }
+      console.log("llego newinscription: ", newInscription)
+      this.inscriptionService.createInscription(newInscription).subscribe({
+        next: (response) => {
+          window.location.reload()
+
+          // this.loadInscriptedCoursesByStudent()
+        },
+      });
+    }
   }
 
  }
+
+ 
