@@ -19,7 +19,6 @@ const initialState: StudentByIdState = {
 const StudentByIdReducer = createReducer(
   initialState,
   on(studentsActions.loadStudentById, (state) => {
-    console.log('inicia student by id')
     return {
       ...state,
       loading: true,
@@ -27,7 +26,6 @@ const StudentByIdReducer = createReducer(
     };
   }),
   on(studentsActions.loadStudentByIdSucces, (state, action) => {
-    console.log('load student by id')
     return {
       ...state,
       Student: action.Student,
@@ -36,7 +34,6 @@ const StudentByIdReducer = createReducer(
     };
   }),
   on(studentsActions.loadStudentByIdFailure, (state, action) => {
-    console.log('fail student by id')
     return {
       ...state,
       loading: false,

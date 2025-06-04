@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student, newStudent } from './models';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../../../../core/services/students.service';
-import { first, map, Observable, take } from 'rxjs';
+import { concatMap, first, map, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { studentsActions } from './store/students.actions';
 import { selectStudentById, selectStudents, selectStudentsError, selectStudentsLoading } from './store/students.selector';
@@ -115,11 +115,8 @@ export class StudentsComponent implements OnInit {
     if(confirm("esta seguro que quiere eliminar este estudiante " + id + "?")){
       this.students = this.students.filter((student) => student.id !== id)
 
-      this.studentsService.deleteStudent(id.toLocaleString()).subscribe({
-        next: (response) => {
-          this.students = response;
-        },
-      });
+      this.store.dispatch(studentsActions.deleteStudent({id}))
+      
     }
 
     

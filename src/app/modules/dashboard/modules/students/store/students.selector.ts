@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { StudentS_FEATURE_KEY, StudentsState } from "./students.reducer";
 import { STUDENT_BY_ID_FEATURE_KEY, StudentByIdState } from "./studentById.reducer";
+// import { STUDENT_DELETE_FEATURE_KEY, StudentDeleteState } from "./studentDelete.reducer";
 
 
 export const selectStudentsState =
@@ -8,6 +9,9 @@ export const selectStudentsState =
   
 export const selectStudentByIdState =
   createFeatureSelector<StudentByIdState>(STUDENT_BY_ID_FEATURE_KEY);
+
+// export const deleteStudentState =
+//   createFeatureSelector<StudentDeleteState>(STUDENT_DELETE_FEATURE_KEY);
 
 export const selectStudents = createSelector(
   selectStudentsState,
@@ -37,5 +41,21 @@ export const selectStudentIdLoading = createSelector(
 
 export const selectStudentIdError = createSelector(
   selectStudentByIdState,
+  (state) => state.error
+);
+
+////////////
+export const deleteStudent = createSelector(
+  selectStudentsState,
+  (state) => state.Students
+);
+
+export const deleteStudentSucces = createSelector(
+  selectStudentsState,
+  (state) => state.loading
+);
+
+export const deleteStudentFailure = createSelector(
+  selectStudentsState,
   (state) => state.error
 );

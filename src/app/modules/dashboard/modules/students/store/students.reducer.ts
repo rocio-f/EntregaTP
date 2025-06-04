@@ -52,7 +52,30 @@ const StudentsReducer = createReducer(
       Students: [],
       error: action.error,
     };
-  }),  
+  }),
+  on(studentsActions.deleteStudent, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null,
+    };
+  }),
+  on(studentsActions.deleteStudentSucces, (state, action) => {
+    return {
+      ...state,
+      Students: action.Students,
+      loading: false,
+      error: null,
+    };
+  }),
+  on(studentsActions.deleteStudentFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      Students: [],
+      error: action.error,
+    };
+  })
 );
 
 export const StudentsFeature = createFeature({

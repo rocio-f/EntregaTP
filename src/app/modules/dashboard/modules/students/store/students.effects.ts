@@ -8,6 +8,7 @@ import { StudentService } from "../../../../../core/services/students.service";
 export class StudentsEffects {
   loadStudents$;
   loadStudentById$;
+  deleteStudent$;
 
   constructor(private actions$: Actions, private studentService: StudentService) {
     this.loadStudents$ = createEffect(() => {
@@ -42,6 +43,22 @@ export class StudentsEffects {
       );
     });
 
+    this.deleteStudent$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(studentsActions.deleteStudent),
+        concatMap((action) =>
+          this.studentService.deleteStudent(action.id).pipe(
+            map((Students) => {
+              console.log("deletestudentsucces effect", Students)
+              return studentsActions.deleteStudentSucces({ Students })
+            }),
+            catchError((error) =>
+              of(studentsActions.deleteStudentFailure({ error: error.message }))
+            )
+          )
+        )
+      );
+    });
 
   }
 }
