@@ -38,7 +38,9 @@
 </form>
 
 <app-students-table
-[dataSource]="students" 
+[dataSource]="students$ | async" 
+[error]="error$ | async"
+[loading]="loading$ | async"
 (editStudent)="onEditStudent($event)"
 (deleteStudent)="onDeleteStudent($event)"
 ></app-students-table>

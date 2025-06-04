@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Student } from '../../models';
-import { Observable } from 'rxjs';
+import { observable, Observable, of } from 'rxjs';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { User } from '../../../../../../core/models';
 
@@ -15,10 +15,16 @@ export class StudentsTableComponent {
   displayedColumns: string[] = ['id', 'name', 'grade', 'actions'];
 
   @Input()
-  dataSource: Student[] = []
+  dataSource: Student[] | null= []
+
+  @Input()
+  loading: boolean | null = false 
+
+  @Input()
+  error: string | null = ''
   
   @Output()
-  deleteStudent = new EventEmitter<number>()
+  deleteStudent = new EventEmitter<string>()
 
   @Output()
   editStudent = new EventEmitter<Student>()
