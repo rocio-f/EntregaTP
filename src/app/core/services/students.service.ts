@@ -12,7 +12,7 @@ constructor(private http: HttpClient){}
     return response
   }
 
-  getStudentById(id: number): Observable<Student | null> {
+  getStudentById(id: string): Observable<Student> {
    
    const response = this.http
       .get<Student>(`http://localhost:3000/students/${id}`)

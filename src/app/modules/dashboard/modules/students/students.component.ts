@@ -5,7 +5,7 @@ import { StudentService } from '../../../../core/services/students.service';
 import { first, map, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { studentsActions } from './store/students.actions';
-import { selectStudents, selectStudentsError, selectStudentsLoading } from './store/students.selector';
+import { selectStudentById, selectStudents, selectStudentsError, selectStudentsLoading } from './store/students.selector';
 
 
 @Component({
@@ -26,6 +26,8 @@ export class StudentsComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<string | null>;
 
+  // studentById$: Observable<Student> 
+
   constructor(
     private fb: FormBuilder, 
     private studentsService: StudentService,
@@ -33,9 +35,10 @@ export class StudentsComponent implements OnInit {
 
     this.students$ = this.store.select(selectStudents);
     this.loading$ = this.store.select(selectStudentsLoading);
-    this.loading$.subscribe(datos => console.log("loadig: ", datos))
     this.error$ = this.store.select(selectStudentsError);
-    this.error$.subscribe(datos => console.log("error: ", datos))
+
+    // this.studentById$ = this.store.select(selectStudentById)
+    // this.studentById$.subscribe((data) => console.log('datos by id: ', data))
 
     this.studentForm = this.fb.group({
       
@@ -51,7 +54,6 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(studentsActions.loadStudents())
     
-    this.students$.subscribe(datos => console.log("datosss: ", datos))
   }
 
   loadStudents(){
@@ -63,7 +65,6 @@ export class StudentsComponent implements OnInit {
       .subscribe({
         next: (datos) => {
           this.students = datos; 
-           console.log("llega estudiantes")
         },
         error: (error) => console.error(error),
         complete: () => {
@@ -101,6 +102,10 @@ export class StudentsComponent implements OnInit {
     this.editingId = null
   }
   
+  onVisibilityStudent(id: string){
+
+  }
+
   onEditStudent(student: Student){
     this.editingId = student.id;
     this.studentForm.patchValue(student)

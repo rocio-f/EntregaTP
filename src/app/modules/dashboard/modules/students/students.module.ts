@@ -13,6 +13,7 @@ import { StudentsRoutingModule } from './students-routing.module';
 import { StudentDetailComponent } from './components/student-detail/student-detail.component';
 import { StoreModule } from '@ngrx/store';
 import { StudentsFeature } from './store/students.reducer';
+import { StudentByIdFeature } from './store/studentById.reducer';
 import { StudentsEffects } from './store/students.effects';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -34,6 +35,7 @@ import { EffectsModule } from '@ngrx/effects';
     MatIconModule,
     StudentsRoutingModule,
     StoreModule.forFeature(StudentsFeature),
+    StoreModule.forFeature(StudentByIdFeature),
     EffectsModule.forFeature([StudentsEffects])
   ],
   exports: [StudentsComponent]

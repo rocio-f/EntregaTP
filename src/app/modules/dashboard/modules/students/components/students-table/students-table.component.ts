@@ -29,6 +29,9 @@ export class StudentsTableComponent {
   @Output()
   editStudent = new EventEmitter<Student>()
 
+  @Output()
+  visibilityStudent = new EventEmitter<string>()
+
   authUser$: Observable<User | null>;
 
   constructor(private authService: AuthService) {

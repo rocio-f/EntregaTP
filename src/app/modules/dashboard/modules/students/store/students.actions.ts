@@ -25,7 +25,11 @@ export const studentsActions = createActionGroup({
     // Accion de error
     'Load Students Failure': props<{ error: string }>(),
 
-    // Si necesitamos argumentos, usamos props
+    //////
     'Load Student By Id': props<{ id: string }>(),
+
+    'Load Student By Id Succes': props<{ Student: Student}>(),
+
+    'Load Student By Id Failure': props<{ error: string }>(),
   },
 });

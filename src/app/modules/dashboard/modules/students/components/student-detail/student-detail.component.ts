@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../../models';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from '../../../../../../core/services/students.service';
+import { studentsActions } from '../../store/students.actions';
+import { Store } from '@ngrx/store';
+import { selectStudentById, selectStudentIdError, selectStudentIdLoading } from '../../store/students.selector';
 
 @Component({
   selector: 'app-student-detail',
@@ -10,15 +13,31 @@ import { StudentService } from '../../../../../../core/services/students.service
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss'
 })
-export class StudentDetailComponent {
-student$: Observable<Student | null>;
+export class StudentDetailComponent implements OnInit {
+// student$: Observable<Student | null>;
+studentId: string
+
+  student$: Observable<Student>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private store: Store
   ) {
-    const studentId = this.activatedRoute.snapshot.params['id'];
+    this.studentId = this.activatedRoute.snapshot.params['id'];
  
-    this.student$ = this.studentService.getStudentById(studentId);
+     this.student$ = this.store.select(selectStudentById);
+     this.loading$ = this.store.select(selectStudentIdLoading);
+     this.error$ = this.store.select(selectStudentIdError);
+ 
+    // this.student$ = this.studentService.getStudentById(this.studentId);
+  }
+
+  ngOnInit(): void {
+      this.store.dispatch(studentsActions.loadStudentById({id: this.studentId}))
+      
   }
 }

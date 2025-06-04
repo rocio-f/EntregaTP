@@ -7,6 +7,7 @@ import { StudentService } from "../../../../../core/services/students.service";
 @Injectable()
 export class StudentsEffects {
   loadStudents$;
+  loadStudentById$;
 
   constructor(private actions$: Actions, private studentService: StudentService) {
     this.loadStudents$ = createEffect(() => {
@@ -26,5 +27,21 @@ export class StudentsEffects {
         )
       );
     });
+
+    this.loadStudentById$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(studentsActions.loadStudentById),
+        concatMap((action) =>
+          this.studentService.getStudentById(action.id).pipe(
+            map((Student) => studentsActions.loadStudentByIdSucces({ Student })),
+            catchError((error) =>
+              of(studentsActions.loadStudentByIdFailure({ error: error.message }))
+            )
+          )
+        )
+      );
+    });
+
+
   }
 }

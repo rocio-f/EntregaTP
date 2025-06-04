@@ -10,16 +10,27 @@ export interface StudentsState {
   error: string | null;
 }
 
+export interface StudentState {
+  Student: Student;
+  loading: boolean;
+  error: string | null;
+}
+
 const initialState: StudentsState = {
   Students: [],
   loading: false,
   error: null,
 };
 
+const initialStateStudentById: StudentState = {
+  Student: {} as Student,
+  loading: false,
+  error: null,
+}
+
 const StudentsReducer = createReducer(
   initialState,
   on(studentsActions.loadStudents, (state) => {
-    console.log("REDUCER INIT")
     return {
       ...state,
       loading: true,
@@ -27,7 +38,6 @@ const StudentsReducer = createReducer(
     };
   }),
   on(studentsActions.loadStudentsSuccess, (state, action) => {
-    console.log("REDUCER SUCCES: ", action.Students)
     return {
       ...state,
       Students: action.Students,
@@ -36,17 +46,16 @@ const StudentsReducer = createReducer(
     };
   }),
   on(studentsActions.loadStudentsFailure, (state, action) => {
-    console.log("REDUCER ERROR: ", action.error)
     return {
       ...state,
       loading: false,
       Students: [],
       error: action.error,
     };
-  })
+  }),  
 );
 
 export const StudentsFeature = createFeature({
   name: StudentS_FEATURE_KEY,
-  reducer: StudentsReducer,
+  reducer: StudentsReducer
 });
