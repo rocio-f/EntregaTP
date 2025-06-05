@@ -75,6 +75,52 @@ const StudentsReducer = createReducer(
       Students: [],
       error: action.error,
     };
+  }),
+  on(studentsActions.createStudent, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null,
+    };
+  }),
+  on(studentsActions.createStudentSucces, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      Students: action.Students,
+      error: null,
+    };
+  }),
+  on(studentsActions.createStudentFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      Students: [],
+      error: action.error,
+    };
+  }),
+  on(studentsActions.editStudent, (state) => {
+    return {
+      ...state,
+      loading: true,
+      error: null,
+    };
+  }),
+  on(studentsActions.editStudentSucces, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      Students: action.Students,
+      error: null,
+    };
+  }),
+  on(studentsActions.editStudentFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      Students: [],
+      error: action.error,
+    };
   })
 );
 

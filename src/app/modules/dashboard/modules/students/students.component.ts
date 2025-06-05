@@ -37,9 +37,6 @@ export class StudentsComponent implements OnInit {
     this.loading$ = this.store.select(selectStudentsLoading);
     this.error$ = this.store.select(selectStudentsError);
 
-    // this.studentById$ = this.store.select(selectStudentById)
-    // this.studentById$.subscribe((data) => console.log('datos by id: ', data))
-
     this.studentForm = this.fb.group({
       
       name: ['', Validators.required],
@@ -47,8 +44,6 @@ export class StudentsComponent implements OnInit {
       grade: ['', Validators.required]
     })
 
-    // this.loadStudents()
-    
   }
 
   ngOnInit(): void {
@@ -66,7 +61,7 @@ export class StudentsComponent implements OnInit {
         next: (datos) => {
           this.students = datos; 
         },
-        error: (error) => console.error(error),
+        // error: (error) => console.error(error),
         complete: () => {
           this.isLoading = false; 
         },
@@ -75,27 +70,16 @@ export class StudentsComponent implements OnInit {
 
   onSubmit(){
     if(this.editingId != null && this.editingId != undefined){
-      this.students = this.students.map((student) =>
-        student.id === this.editingId
-          ? { ...student, ...this.studentForm.value }
-          : student
-      );
+      const editStudent: Student  = this.studentForm.value
+      editStudent.id = this.editingId
+
+     this.store.dispatch(studentsActions.editStudent({Student: editStudent}))
     } 
     else{
       ///nuevo estudiante
       const newStudent: newStudent  = this.studentForm.value
    
-      this.studentsService.createStudent(newStudent)
-      .subscribe({
-        next: (response) =>{
-          this.students = [...this.students, response]
-        },
-        error: (error) => console.error(error),
-        complete: () => {
-          
-        }
-      })
-     
+      this.store.dispatch(studentsActions.createStudent({Student: newStudent}))
     }
 
     this.studentForm.reset()

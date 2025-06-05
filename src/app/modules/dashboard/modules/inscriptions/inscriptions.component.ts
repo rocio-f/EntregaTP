@@ -64,8 +64,6 @@ export class InscriptionsComponent {
             .subscribe({
               next: (datos) => {
                 this.inscriptions = datos; 
-                
-                console.log('inscripciones loaded')
               },
               error: (error) => console.error(error),
               complete: () => {
@@ -133,13 +131,11 @@ onUnsuscribeCourse(inscriptionCourse: InscriptionCourses){
   }
 
 onInscribeCourse(inscriptionCourse: InscriptionCourses){
-  console.log("DATO DEL FRONT: ", inscriptionCourse)
     if(confirm("esta seguro que quiere inscribirse en el siguiente curso: " + inscriptionCourse.name + "?")){
       const newInscription: NewInscrtiption = {
         courseId: inscriptionCourse.courseId,
         studentId: this.user.id
       }
-      console.log("llego newinscription: ", newInscription)
       this.inscriptionService.createInscription(newInscription).subscribe({
         next: (response) => {
           window.location.reload()

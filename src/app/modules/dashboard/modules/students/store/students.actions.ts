@@ -1,5 +1,5 @@
 import { createActionGroup, createFeature, createReducer, emptyProps, props } from "@ngrx/store";
-import { Student } from "../models";
+import { newStudent, Student } from "../models";
 
 export interface StudentsState {
   students: Student[]; 
@@ -37,6 +37,20 @@ export const studentsActions = createActionGroup({
 
     'Delete Student Succes':  props<{ Students: Student[] }>(),
 
-    'Delete Student Failure': props<{ error: string }>()
+    'Delete Student Failure': props<{ error: string }>(),
+
+    //////
+    'Create Student': props<{ Student: newStudent }>(),
+
+    'Create Student Succes':  props<{ Students: Student[] }>(),
+
+    'Create Student Failure': props<{ error: string }>(),
+    
+    //////
+    'Edit Student': props<{ Student: Student }>(),
+
+    'Edit Student Succes':  props<{ Students: Student[] }>(),
+
+    'Edit Student Failure': props<{ error: string }>(),
   },
 });

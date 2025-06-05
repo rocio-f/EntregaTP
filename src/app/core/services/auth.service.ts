@@ -64,7 +64,6 @@ export class AuthService{
         .subscribe({
             next: (response) => {
                 const user = response[0]
-                console.log(user)
                 if(user){
                     alert("ya existe el mail ingresado")
                     

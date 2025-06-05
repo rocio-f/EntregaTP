@@ -59,3 +59,35 @@ export const deleteStudentFailure = createSelector(
   selectStudentsState,
   (state) => state.error
 );
+
+////////////
+export const createStudent = createSelector(
+  selectStudentsState,
+  (state) => state.Students
+);
+
+export const createStudentSucces = createSelector(
+  selectStudentsState,
+  (state) => state.loading
+);
+
+export const createStudentFailure = createSelector(
+  selectStudentsState,
+  (state) => state.error
+);
+
+////////////
+export const editStudent = createSelector(
+  selectStudentsState,
+  (state) => state.Students
+);
+
+export const editStudentSucces = createSelector(
+  selectStudentsState,
+  (state) => state.loading
+);
+
+export const editStudentFailure = createSelector(
+  selectStudentsState,
+  (state) => state.error
+);

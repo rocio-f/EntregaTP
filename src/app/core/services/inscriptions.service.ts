@@ -28,7 +28,6 @@ constructor(private http: HttpClient){}
   }
 
   createInscription(inscription: NewInscrtiption): Observable<Inscription>{
-    console.log("llego servicio, creando nueva inscripcion: ", inscription)
     return this.http.post<Inscription>(`http://localhost:3000/inscriptions`, inscription)
   }
 }

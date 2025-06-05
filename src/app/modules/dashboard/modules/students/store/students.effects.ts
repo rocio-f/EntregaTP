@@ -9,6 +9,8 @@ export class StudentsEffects {
   loadStudents$;
   loadStudentById$;
   deleteStudent$;
+  createStudent$;
+  editStudent$;
 
   constructor(private actions$: Actions, private studentService: StudentService) {
     this.loadStudents$ = createEffect(() => {
@@ -49,11 +51,42 @@ export class StudentsEffects {
         concatMap((action) =>
           this.studentService.deleteStudent(action.id).pipe(
             map((Students) => {
-              console.log("deletestudentsucces effect", Students)
               return studentsActions.deleteStudentSucces({ Students })
             }),
             catchError((error) =>
               of(studentsActions.deleteStudentFailure({ error: error.message }))
+            )
+          )
+        )
+      );
+    });
+
+    this.createStudent$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(studentsActions.createStudent),
+        concatMap((action) =>
+          this.studentService.createStudent(action.Student).pipe(
+            map((Students) => {
+              return studentsActions.createStudentSucces({ Students })
+            }),
+            catchError((error) =>
+              of(studentsActions.createStudentFailure({ error: error.message }))
+            )
+          )
+        )
+      );
+    });
+
+    this.editStudent$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(studentsActions.editStudent),
+        concatMap((action) =>
+          this.studentService.editStudent(action.Student).pipe(
+            map((Students) => {
+              return studentsActions.editStudentSucces({ Students })
+            }),
+            catchError((error) =>
+              of(studentsActions.editStudentFailure({ error: error.message }))
             )
           )
         )
