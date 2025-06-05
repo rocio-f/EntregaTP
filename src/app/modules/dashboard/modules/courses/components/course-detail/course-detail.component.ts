@@ -34,4 +34,8 @@ export class CourseDetailComponent implements OnInit {
   ngOnInit(): void {
       this.store.dispatch(coursesActions.loadCourseById({id: this.courseId}))
   }
+  
+  backLastPage() {
+    window.history.back()
+  }
 }

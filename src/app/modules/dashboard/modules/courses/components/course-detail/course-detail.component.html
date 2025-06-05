@@ -11,5 +11,12 @@
 
   <div class="mt-4"><h3>Profesor/a asignado/a: {{ (course$ | async)?.professor }}</h3></div>
 
+  <div class="mt-5">
+    <button mat-button
+      (click)="backLastPage()" 
+      >
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+  </div>
 </div>
 }

@@ -37,4 +37,8 @@ export class StudentDetailComponent implements OnInit {
       this.store.dispatch(studentsActions.loadStudentById({id: this.studentId}))
       
   }
+  
+  backLastPage() {
+    window.history.back()
+  }
 }
