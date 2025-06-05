@@ -30,7 +30,6 @@ constructor(private http: HttpClient){}
       .pipe(concatMap(() => this.getStudents()));
   }
 
-
   editStudent(student: Student): Observable<Student[]>{
     return this.http.put<Student>(`http://localhost:3000/students/${student.id}`, student)
     .pipe(concatMap(() => this.getStudents()));

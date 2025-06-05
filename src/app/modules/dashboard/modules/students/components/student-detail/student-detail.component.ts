@@ -15,8 +15,7 @@ import { selectStudentById, selectStudentIdError, selectStudentIdLoading } from 
 })
 export class StudentDetailComponent implements OnInit {
 // student$: Observable<Student | null>;
-studentId: string
-
+  studentId: string
   student$: Observable<Student>;
   loading$: Observable<boolean>;
   error$: Observable<string | null>;
@@ -32,8 +31,6 @@ studentId: string
      this.student$ = this.store.select(selectStudentById);
      this.loading$ = this.store.select(selectStudentIdLoading);
      this.error$ = this.store.select(selectStudentIdError);
- 
-    // this.student$ = this.studentService.getStudentById(this.studentId);
   }
 
   ngOnInit(): void {

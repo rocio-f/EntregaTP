@@ -14,10 +14,16 @@ export class CoursesTableComponent {
 displayedColumns: string[] = ['id', 'name', 'professor', 'modality', 'level', 'actions'];
 
   @Input()
-  dataSource: Course[] = []
+  dataSource: Course[] | null = []
+  
+  @Input()
+  loading: boolean | null = false 
+
+  @Input()
+  error: string | null = ''
   
   @Output()
-  deleteCourse = new EventEmitter<number>()
+  deleteCourse = new EventEmitter<string>()
 
   @Output()
   editCourse = new EventEmitter<Course>()

@@ -7,6 +7,11 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { CoursesTableComponent } from './components/courses-table/courses-table.component';
 import {MatTableModule} from '@angular/material/table';
 import { CourseDetailComponent } from './components/course-detail/course-detail.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesFeature } from './store/courses.reducer';
+import { CoursetByIdFeature } from './store/courseById.reducer';
+import { CoursesEffects } from './store/courses.effects';
 
 
 @NgModule({
@@ -19,7 +24,10 @@ import { CourseDetailComponent } from './components/course-detail/course-detail.
     CommonModule,
     CoursesRoutingModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    StoreModule.forFeature(CoursesFeature),
+    StoreModule.forFeature(CoursetByIdFeature),
+    EffectsModule.forFeature([CoursesEffects])
   ]
 })
 export class CoursesModule { }

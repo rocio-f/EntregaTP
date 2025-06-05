@@ -13,14 +13,20 @@ constructor(private http: HttpClient){}
         return response
   }
 
-  getCourseById(id: string): Observable<Course | null> {
+  getCourseById(id: string): Observable<Course> {
        const response = this.http
           .get<Course>(`http://localhost:3000/courses/${id}`)
         return response
   }
 
-  createCourse(course: newCourse): Observable<Course>{
+  createCourse(course: newCourse): Observable<Course[]>{
     return this.http.post<Course>(`http://localhost:3000/courses`, course)
+    .pipe(concatMap(() => this.getCourses()));
+  }
+
+  editCourse(course: Course): Observable<Course[]>{
+    return this.http.put<Course>(`http://localhost:3000/courses/${course.id}`, course)
+    .pipe(concatMap(() => this.getCourses()));
   }
 
   deleteCourse(id: string): Observable<Course[]> {

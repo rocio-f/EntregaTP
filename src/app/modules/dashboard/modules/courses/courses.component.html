@@ -48,7 +48,9 @@
 </form>
 
 <app-courses-table
-[dataSource]="courses" 
+[dataSource]="courses$ | async" 
+[error]="error$ | async"
+[loading]="loading$ | async"
 (editCourse)="onEditCourse($event)"
 (deleteCourse)="onDeleteCourse($event.toString())"
 ></app-courses-table>

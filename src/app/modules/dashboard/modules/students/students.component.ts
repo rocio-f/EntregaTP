@@ -48,7 +48,6 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(studentsActions.loadStudents())
-    
   }
 
   loadStudents(){

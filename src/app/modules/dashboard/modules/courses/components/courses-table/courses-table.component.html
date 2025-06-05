@@ -1,62 +1,52 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+@if (loading) {
+<p>Cargando...</p>
+} @else if (error) {
+<p>Error al cargar los cursos.</p>
+} @else {
+  <div class="mt-5 container ms-0 me-0 ps-0">
+    <table class="table table-light">
+      <thead>
+        <tr>
+            <th class="col-sm-2"> Nro. </th>
+            <th class="col-sm-3"> Curso </th>
+            <th class="col-sm-2"> Profesor/a </th>
+            <th class="col-sm-2"> Modalidad </th>
+            <th class="col-sm-1"> Nivel </th>
+            <th class="col-sm-2">  </th>
+            <th></th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of dataSource">
+          <td >{{ course.id }}</td>
+          <td >{{ course.name }}</td>
+          <td >{{ course.professor }}</td>
+          <td >{{ course.modality }}</td>
+          <td >{{ course.level }}</td>
+          <td  >
+          <button mat-button 
+          [routerLink]="course.id" 
+          >
+              <mat-icon>visibility</mat-icon>
+            </button>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id</th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Curso </th>
-      <td mat-cell *matCellDef="let element"> {{element.name }} </td>
-    </ng-container>
-  
-    <!-- professor Column -->
-    <ng-container matColumnDef="professor">
-      <th mat-header-cell *matHeaderCellDef> Profesor/a </th>
-      <td mat-cell *matCellDef="let element"> {{element.professor}} </td>
-    </ng-container>
-  
-    <!-- modality Column -->
-    <ng-container matColumnDef="modality">
-      <th mat-header-cell *matHeaderCellDef> Modalidad </th>
-      <td mat-cell *matCellDef="let element"> {{element.modality}} </td>
-    </ng-container>
-  
-    <!-- level Column -->
-    <ng-container matColumnDef="level">
-      <th mat-header-cell *matHeaderCellDef> Nivel </th>
-      <td mat-cell *matCellDef="let element"> {{element.level | number}} </td>
-    </ng-container>
-  
-    <!-- actions Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>  </th>
-      <td mat-cell *matCellDef="let element"> 
-       <button mat-button [routerLink]="element.id" >
-          <mat-icon>visibility</mat-icon>
-        </button>
-        
-        <button mat-button 
-        [disabled]="(authUser$ | async)?.role != 'admin'"
-        (click)="editCourse.emit(element)"> 
-          <mat-icon>edit</mat-icon>
-        </button>  
+            <button mat-button 
+            [disabled]="(authUser$ | async)?.role != 'admin'"
+            (click)="editCourse.emit(course)"> 
+              <mat-icon>edit</mat-icon>
+            </button>  
 
-        <button mat-button 
-        [disabled]="(authUser$ | async)?.role != 'admin'"
-        (click)="deleteCourse.emit(element.id)"> 
-          <mat-icon>delete</mat-icon>
-        </button>  
-      </td>
-    </ng-container>
+            <button mat-button 
+            [disabled]="(authUser$ | async)?.role != 'admin'"
+            (click)="deleteCourse.emit(course.id)"> 
+              <mat-icon>delete</mat-icon>
+            </button>  
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+}
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  
+
   

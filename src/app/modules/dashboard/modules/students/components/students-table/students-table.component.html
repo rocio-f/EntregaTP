@@ -20,7 +20,7 @@
           <td >{{ student.grade | number }}</td>
           <td  >
           <button mat-button 
-          [routerLink]="student.id" 
+          [routerLink]="'students/'+student.id" 
           >
               <mat-icon>visibility</mat-icon>
             </button>

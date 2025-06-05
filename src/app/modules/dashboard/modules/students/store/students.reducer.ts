@@ -5,7 +5,7 @@ import { studentsActions } from "./students.actions";
 export const StudentS_FEATURE_KEY = 'Students';
 
 export interface StudentsState {
-  Students: Student[]; // Replace 'any' with the actual type of your Students
+  Students: Student[]; 
   loading: boolean;
   error: string | null;
 }
