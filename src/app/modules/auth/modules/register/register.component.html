@@ -26,7 +26,7 @@
 
   <mat-form-field class="col-12">
     <mat-label>Contraseña</mat-label>
-    <input  matInput formControlName="password" />
+    <input (keydown.enter)="registrarse()" matInput formControlName="password" />
   </mat-form-field>
 
   <div class="col-12 d-flex justify-content-end">

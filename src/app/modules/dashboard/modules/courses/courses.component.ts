@@ -76,6 +76,8 @@ export class CoursesComponent implements OnInit {
     }
 
     this.courseForm.reset()
+    this.courseForm.controls['name'].setErrors(null)
+    // this.courseForm.controls['name'].setErrors(null)
     this.editingId = null
   }
   
